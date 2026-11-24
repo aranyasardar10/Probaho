@@ -4,11 +4,13 @@ export class Environment {
     this.vars = new Map();
     this.parent = parent;
     this.readonly = readonly;
+    // Class access is lexical: nested functions in a method inherit it, while
+    // unrelated functions called by that method do not.
+    this.classContext = parent?.classContext ?? null;
   }
   has(name) { return this.vars.has(name); }
   define(name, value) { this.vars.set(name, value); }
   set(name, value) { this.vars.set(name, value); }
-  // find the scope that owns this name, or null
   lookup(name) {
     for (let e = this; e; e = e.parent) if (e.vars.has(name)) return e;
     return null;

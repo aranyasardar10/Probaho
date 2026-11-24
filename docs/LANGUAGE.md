@@ -1,165 +1,63 @@
 # Probaho language reference · প্রবাহ ভাষার নির্দেশিকা
 
-## 1. Basics
+## Basics
 
-- A statement ends at a new line, or at `;` if you want several on one line.
-- Blocks use `{ ... }`.
-- Comments start with `#` and run to the end of the line.
-- Strings use double quotes and support `\n`, `\t`, `\"` and `\\`.
-- Numbers can be written with Bangla digits (`১২.৫`) or English digits (`12.5`).
-- Names can contain Bangla letters, English letters, digits and `_`, but cannot start with a digit.
+Statements end at a newline or `;`; blocks use `{ ... }`; comments begin with `#`. Strings use double quotes and support `\n`, `\t`, `\"` and `\\`. Numbers and identifiers may use Bangla script, and English keyword aliases are available.
 
-```
-# একটি ছোট প্রোগ্রাম
-ধরি নাম = "রহিম"
-ছাপো "হ্যালো, " + নাম
-```
-
-## 2. Keywords · কীওয়ার্ড
+## Keywords
 
 | Bangla | English alias | Meaning |
 |---|---|---|
 | `ধরি` | `let` | declare a variable |
-| `যদি` | `if` | if |
-| `নাহলে` | `else` | else |
-| `যতক্ষণ` | `while` | while loop |
-| `ফাংশন` | `fn` | function |
-| `ফেরত` | `return` | return |
-| `ছাপো` | `print` | print |
+| `যদি` / `নাহলে` | `if` / `else` | conditional |
+| `যতক্ষণ` | `while` | loop |
+| `ফাংশন` / `ফেরত` | `fn` / `return` | functions |
+| `ছাপো` | `print` | output |
 | `সত্য` / `মিথ্যা` | `true` / `false` | booleans |
 | `এবং` / `অথবা` / `না` | `and` / `or` / `not` | logic |
-| `থামো` | `break` | leave the loop |
-| `পরেরটা` | `continue` | next iteration |
+| `থামো` / `পরেরটা` | `break` / `continue` | loop control |
+| `শ্রেণি` | `class` | declare a class |
+| `গোপন` | `private` | private field or method |
+| `এই` | `this` | current object inside a method |
+| `নতুন` | `new` | create a class instance |
 
-All keywords are defined in `src/keywords.js`.
+## Values and operators
 
-## 3. Values
+Probaho supports numbers, strings, booleans, lists, functions, classes, objects and `শূন্য` (nothing). `+`, `-`, `*`, `/`, `%`, comparisons, equality, `এবং`, `অথবা` and `না` work as in the main README. Lists and strings use zero-based indexing.
 
-| Type | Bangla name | Examples |
-|---|---|---|
-| number | সংখ্যা | `৫`, `৩.১৪`, `-২` |
-| string | লেখা | `"বাংলা"` |
-| boolean | সত্য/মিথ্যা | `সত্য`, `মিথ্যা` |
-| list | তালিকা | `[১, ২, ৩]` |
-| nothing | শূন্য | what a function returns when it has no `ফেরত` |
-| function | ফাংশন | `ফাংশন f() { }` |
+## Classes and objects
 
-**Truthiness:** only `মিথ্যা`, `০` and nothing count as false in conditions. Everything else is true.
+A class contains field declarations and methods. Every instance gets its own fields; field initializers are evaluated for each new instance. Omitted field initializers default to `শূন্য`. Use a method named `শুরু` (or `init` in English) as the constructor. Methods use `এই`/`this` to access their receiver. Fields and methods marked `গোপন`/`private` can only be accessed from methods of the same class.
 
-## 4. Operators
+```text
+শ্রেণি হিসাব {
+  ধরি মালিক = ""
+  গোপন ধরি ব্যালেন্স = ০
 
-From the lowest to the highest precedence:
+  ফাংশন শুরু(নাম, প্রাথমিক) {
+    এই.মালিক = নাম
+    এই.ব্যালেন্স = প্রাথমিক
+  }
 
-| Operators | Notes |
-|---|---|
-| `অথবা` | returns the first true side, and skips the right side if the left is true |
-| `এবং` | skips the right side if the left is false |
-| `==` `!=` | lists are compared item by item |
-| `<` `>` `<=` `>=` | numbers with numbers, or strings with strings |
-| `+` `-` | `+` also joins two strings or two lists |
-| `*` `/` `%` | division or remainder by zero is an error |
-| `না` `-` (unary) | |
-| calls `f(x)` and index `xs[i]` | |
+  ফাংশন জমা(টাকা) {
+    যদি টাকা <= ০ { ফেরত মিথ্যা }
+    এই.ব্যালেন্স = এই.ব্যালেন্স + টাকা
+    ফেরত সত্য
+  }
 
-`"a" + ১` is an error. Convert first: `"a" + লেখা(১)`.
-
-## 5. Statements
-
-```
-ধরি x = ৫                # declare
-x = x + ১                # assign
-xs[০] = ১০               # assign to a list item
-
-যদি x > ৫ {
-  ছাপো "বড়"
-} নাহলে যদি x == ৫ {
-  ছাপো "সমান"
-} নাহলে {
-  ছাপো "ছোট"
+  ফাংশন দেখাও() { ছাপো এই.মালিক, এই.ব্যালেন্স }
 }
-
-যতক্ষণ x < ১০ {
-  x = x + ১
-  যদি x == ৭ { পরেরটা }
-  যদি x == ৯ { থামো }
-}
-
-ছাপো x, "a", সত্য         # print several values, separated by a space
+ধরি রহিম = নতুন হিসাব("রহিম", ১০০)
+রহিম.জমা(৫০)
+রহিম.দেখাও()
 ```
 
-`নাহলে` may start on the line after the closing `}`.
+A method can be saved in a variable and called later; it retains its object receiver. Classes must be instantiated with `নতুন`/`new`. Assigning to undeclared fields and reassigning methods are errors. There is no inheritance yet.
 
-## 6. Functions
+## Built-ins
 
-```
-ফাংশন যোগফল(a, b) {
-  ফেরত a + b
-}
-ছাপো যোগফল(২, ৩)
-```
+`দৈর্ঘ্য(x)` / `len`, `যোগ(list, x)` / `append`, `সংখ্যা(x)` / `number`, and `লেখা(x)` / `str`.
 
-- A function without `ফেরত` gives nothing.
-- Functions are values and can be returned, and they remember the variables around them (closures).
-- Calling a function with the wrong number of arguments is an error.
-- Recursion is limited to a depth of 1000 calls.
+## Limits
 
-## 7. Lists and strings
-
-```
-ধরি ফল = ["আম", "জাম"]
-যোগ(ফল, "কাঁঠাল")
-ছাপো ফল[০], দৈর্ঘ্য(ফল)     # আম 3
-```
-
-- Indexes start at 0. An index outside the list is an error.
-- Strings can be indexed but not changed in place.
-- Strings are measured the way a reader sees them: `দৈর্ঘ্য("কি")` is 1 and `দৈর্ঘ্য("বাংলা")` is 2 (`বাং` and `লা`).
-
-## 8. Built-in functions
-
-| Function | English alias | Does |
-|---|---|---|
-| `দৈর্ঘ্য(x)` | `len` | length of a list or string |
-| `যোগ(list, x)` | `append` | adds `x` to the end of the list |
-| `সংখ্যা(x)` | `number` | converts a string such as `"১২"` to a number |
-| `লেখা(x)` | `str` | converts any value to a string |
-
-You can create your own variable with a built-in's name, but you cannot overwrite the built-in in place.
-
-## 9. Scope
-
-Each `{ }` block has its own scope. A name can only be declared once per scope, but an inner scope can declare the same name again (shadowing). Assignment (`x = ...`) changes the nearest existing variable.
-
-## 10. Limits
-
-- A program stops with an error after 1,000,000 loop iterations and function calls (a guard against infinite loops).
-- Function calls can nest 1000 deep.
-
-## 11. Grammar
-
-```
-program     = { statement } ;
-statement   = varDecl | assignment | ifStmt | whileStmt
-            | funcDecl | returnStmt | printStmt
-            | "থামো" | "পরেরটা" | exprStmt ;
-varDecl     = "ধরি" IDENT "=" expr ;
-assignment  = IDENT [ "[" expr "]" ] "=" expr ;
-ifStmt      = "যদি" expr block [ "নাহলে" ( ifStmt | block ) ] ;
-whileStmt   = "যতক্ষণ" expr block ;
-funcDecl    = "ফাংশন" IDENT "(" [ params ] ")" block ;
-returnStmt  = "ফেরত" [ expr ] ;
-printStmt   = "ছাপো" expr { "," expr } ;
-block       = "{" { statement } "}" ;
-
-expr        = or ;
-or          = and { "অথবা" and } ;
-and         = equality { "এবং" equality } ;
-equality    = comparison { ( "==" | "!=" ) comparison } ;
-comparison  = term { ( "<" | ">" | "<=" | ">=" ) term } ;
-term        = factor { ( "+" | "-" ) factor } ;
-factor      = unary { ( "*" | "/" | "%" ) unary } ;
-unary       = ( "না" | "-" ) unary | call ;
-call        = primary { "(" [ args ] ")" | "[" expr "]" } ;
-primary     = NUMBER | STRING | "সত্য" | "মিথ্যা"
-            | IDENT | "(" expr ")" | "[" [ args ] "]" ;
-```
+The interpreter guards against excessively long programs and deep recursion. Run the test suite with `npm test`; run a program with `node run.js examples/hello.pb`.

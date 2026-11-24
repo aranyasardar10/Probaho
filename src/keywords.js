@@ -14,4 +14,8 @@ export const KEYWORDS = {
   'না': 'NOT', 'not': 'NOT',
   'থামো': 'BREAK', 'break': 'BREAK',
   'পরেরটা': 'CONTINUE', 'continue': 'CONTINUE',
+  'শ্রেণি': 'CLASS', 'class': 'CLASS',
+  'গোপন': 'PRIVATE', 'private': 'PRIVATE',
+  'এই': 'THIS', 'this': 'THIS',
+  'নতুন': 'NEW', 'new': 'NEW',
 };
