@@ -2,7 +2,7 @@
 
 **A small programming language you write in Bangla.** Keywords, numbers, variable names and error messages all work in Bangla, with English aliases if you prefer. It runs entirely in the browser, with no backend and zero dependencies.
 
-**[▶ Try the playground](https://aranyasardar10.github.io/probaho/)**
+**[▶ Try the playground](https://aranyasardar10.github.io/Probaho/)**
 
 <!-- Add a short screen recording here: ![demo](docs/demo.gif) -->
 
