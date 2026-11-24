@@ -10,35 +10,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  /* Palette: monsoon indigo, rickshaw-art marigold and rose, river teal */
   :root {
     --ground: #0f1a33; --panel: #162447; --slab: #0a1226; --line: #2a3c6b;
     --text: #e9edf8; --muted: #93a0c4;
     --sun: #ffb703; --rose: #ff4d8d; --river: #2ec4b6; --mark: #ffb703; --err: #ff7aa8;
     --k: #ff6fa5; --s: #ffd166; --n: #5eead4; --c: #7b8bb5; --b: #8ecbff; --f: #c8b6ff;
     --ui: "Anek Bangla", "Noto Sans Bengali", "Nirmala UI", "Kalpurush", system-ui, sans-serif;
-    --code: "JetBrains Mono", "Anek Bangla", "Noto Sans Bengali", "Nirmala UI", monospace;
+    --code: "JetBrains Mono", "Anek Bangla", "Noto Sans Bengali", monospace;
     color-scheme: dark;
   }
   @media (prefers-color-scheme: light) {
-    :root {
-      --ground: #f3f4fb; --panel: #ffffff; --slab: #e9ecf8; --line: #cfd4ea;
-      --text: #14213d; --muted: #566287; --mark: #c4115c; --err: #b0104f;
-      --k: #c4115c; --s: #8f5f00; --n: #0b7a75; --c: #66729a; --b: #1a5fb4; --f: #6b3fc4;
-      color-scheme: light;
-    }
+    :root { --ground: #f3f4fb; --panel: #ffffff; --slab: #e9ecf8; --line: #cfd4ea; --text: #14213d; --muted: #566287; --mark: #c4115c; --err: #b0104f; --k: #c4115c; --s: #8f5f00; --n: #0b7a75; --c: #66729a; --b: #1a5fb4; --f: #6b3fc4; }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--ground); color: var(--text); font: 400 1rem/1.7 var(--ui); }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
-  a { color: inherit; }
-  :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
-
-  /* Hero: the wordmark with a river running under it */
+  a { color: inherit; } :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
   .hero { position: relative; overflow: hidden; padding: 18px 0 0; }
-  .top { display: flex; justify-content: flex-end; font-size: 0.95rem; }
+  .top { display: flex; justify-content: flex-end; font-size: .95rem; }
   .top a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
-  .mark { margin: 0; font: 800 clamp(4rem, 13vw, 8.5rem)/1.3 var(--ui); color: var(--mark); letter-spacing: -0.01em; }
+  .mark { margin: 0; font: 800 clamp(4rem, 13vw, 8.5rem)/1.3 var(--ui); color: var(--mark); letter-spacing: -.01em; }
   .lead { margin: -6px 0 0; font: 600 clamp(1.25rem, 3.4vw, 1.9rem)/1.4 var(--ui); }
   .en { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
   .river { position: relative; height: 84px; margin-top: 14px; }
@@ -48,66 +39,46 @@
   .river path { fill: none; stroke-width: 3; vector-effect: non-scaling-stroke; }
   @keyframes flow { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .river svg { animation: none; } }
-
-  /* Examples as plain text tabs */
   .tabs { display: flex; gap: 22px; overflow-x: auto; padding: 14px 0 10px; border-bottom: 1px solid var(--line); scrollbar-width: none; }
   .tab { flex: none; font: 600 1rem var(--ui); color: var(--muted); background: none; border: 0; padding: 4px 0; cursor: pointer; border-bottom: 3px solid transparent; }
-  .tab:hover { color: var(--text); }
-  .tab[aria-current="true"] { color: var(--text); border-bottom-color: var(--sun); }
-
+  .tab:hover { color: var(--text); } .tab[aria-current="true"] { color: var(--text); border-bottom-color: var(--sun); }
   .stage { display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; margin-top: 18px; }
   @media (max-width: 860px) { .stage { grid-template-columns: 1fr; } }
-
-  /* Editor with a rickshaw-colour stripe */
   .editor { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; box-shadow: 0 18px 40px -24px rgba(0,0,0,.6); }
   .editor::before { content: ""; display: block; height: 6px; background: repeating-linear-gradient(90deg, var(--sun) 0 36px, var(--rose) 36px 72px, var(--river) 72px 108px); }
-  .head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+  .head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
   .edit { display: grid; grid-template-columns: auto 1fr; height: 420px; }
   .gutter, .hl, #code { font: 400 15px/1.7 var(--code); letter-spacing: 0; }
   .gutter { padding: 14px 10px 14px 14px; text-align: right; color: var(--c); white-space: pre; overflow: hidden; user-select: none; border-right: 1px solid var(--line); }
-  .surface { position: relative; }
-  .hl, #code { position: absolute; inset: 0; margin: 0; padding: 14px; border: 0; white-space: pre; tab-size: 2; }
+  .surface { position: relative; } .hl, #code { position: absolute; inset: 0; margin: 0; padding: 14px; border: 0; white-space: pre; tab-size: 2; }
   .hl { overflow: hidden; pointer-events: none; color: var(--text); }
   #code { background: transparent; color: transparent; caret-color: var(--sun); resize: none; outline: none; overflow: auto; }
   #code::selection { background: color-mix(in srgb, var(--sun) 35%, transparent); }
-  .k { color: var(--k); font-weight: 600; } .s { color: var(--s); } .n { color: var(--n); }
-  .c { color: var(--c); font-style: italic; } .b { color: var(--b); } .f { color: var(--f); }
-
+  .k { color: var(--k); font-weight: 600; } .s { color: var(--s); } .n { color: var(--n); } .c { color: var(--c); font-style: italic; } .b { color: var(--b); } .f { color: var(--f); }
   .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--line); }
   button.run { font: 800 1.05rem var(--ui); background: var(--sun); color: #14213d; border: 0; border-radius: 8px; padding: 9px 22px; cursor: pointer; }
   button.run:hover { filter: brightness(1.08); }
   button.ghost { font: 600 1rem var(--ui); background: none; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px 16px; cursor: pointer; }
-  button.ghost:hover { border-color: var(--muted); }
-  label { display: flex; align-items: center; gap: 8px; color: var(--muted); cursor: pointer; }
-  label input { accent-color: var(--sun); width: 16px; height: 16px; }
-  #toast { margin-left: auto; color: var(--river); font-size: 0.95rem; }
-
-  /* Output slab */
+  label { display: flex; align-items: center; gap: 8px; color: var(--muted); cursor: pointer; } label input { accent-color: var(--sun); width: 16px; height: 16px; }
+  #toast { margin-left: auto; color: var(--river); font-size: .95rem; }
   .slab { background: var(--slab); border-radius: 14px 14px 14px 2px; display: flex; flex-direction: column; min-height: 300px; }
-  .status { display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: var(--muted); font-size: 0.95rem; border-bottom: 1px solid var(--line); }
-  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
-  .status[data-state="ok"] .dot { background: var(--river); }
-  .status[data-state="err"] .dot { background: var(--rose); }
+  .status { display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: var(--muted); font-size: .95rem; border-bottom: 1px solid var(--line); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); } .status[data-state="ok"] .dot { background: var(--river); } .status[data-state="err"] .dot { background: var(--rose); }
   #out { padding: 14px 16px 18px; font: 400 15px/1.75 var(--code); white-space: pre-wrap; overflow: auto; flex: 1; max-height: 470px; }
   .ph { color: var(--muted); font-family: var(--ui); }
-  .error { margin-top: 10px; padding-left: 12px; border-left: 4px solid var(--rose); }
-  .error .l0 { color: var(--err); font: 800 1rem var(--ui); }
-  .error .l1 { color: var(--muted); font-family: var(--ui); }
-  .error .code { margin-top: 6px; } .error .caret { color: var(--err); }
-
+  .error { margin-top: 10px; padding-left: 12px; border-left: 4px solid var(--rose); } .error .l0 { color: var(--err); font: 800 1rem var(--ui); } .error .l1 { color: var(--muted); font-family: var(--ui); } .error .code { margin-top: 6px; } .error .caret { color: var(--err); }
   h2 { font: 800 1.35rem/1.4 var(--ui); margin: 34px 0 6px; }
-  .kw { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 26px; }
-  .kw span { color: var(--muted); } .kw b { color: var(--text); font-weight: 800; margin-right: 6px; }
-  footer { margin: 34px 0 40px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; }
+  .kw { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 26px; } .kw span { color: var(--muted); } .kw b { color: var(--text); font-weight: 800; margin-right: 6px; }
+  footer { margin: 34px 0 40px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .95rem; }
 </style>
 </head>
 <body>
 <header class="hero">
   <div class="wrap">
-    <div class="top"><a href="https://github.com/YOUR-USERNAME/probaho">GitHub</a></div>
+    <div class="top"><a href="https://github.com/aranyasardar10/Probaho/tree/OPP">GitHub · OPP</a></div>
     <h1 class="mark">প্রবাহ</h1>
     <p class="lead">বাংলায় লেখো, বাংলায় চালাও।</p>
-    <p class="en">Probaho is a small programming language with Bangla keywords. It runs right here in your browser.</p>
+    <p class="en">Probaho is a small object-oriented programming language with Bangla keywords. It runs right here in your browser.</p>
   </div>
   <div class="river" aria-hidden="true">
     <svg viewBox="0 0 1600 80" preserveAspectRatio="none"><path stroke="var(--sun)" d="M0 40 Q100 4 200 40 T400 40 T600 40 T800 40 T1000 40 T1200 40 T1400 40 T1600 40"/></svg>
@@ -115,54 +86,28 @@
     <svg viewBox="0 0 1600 80" preserveAspectRatio="none" style="opacity:.65"><path stroke="var(--river)" d="M0 54 Q100 22 200 54 T400 54 T600 54 T800 54 T1000 54 T1200 54 T1400 54 T1600 54"/></svg>
   </div>
 </header>
-
 <main class="wrap">
   <nav class="tabs" id="tabs" aria-label="উদাহরণ / Examples"></nav>
-
   <div class="stage">
     <section class="editor" aria-label="Code editor">
-      <div class="head"><span>main.pb</span><span>Ctrl + Enter</span></div>
-      <div class="edit">
-        <div class="gutter" id="gutter" aria-hidden="true"></div>
-        <div class="surface">
-          <pre class="hl" id="hl" aria-hidden="true"></pre>
-          <textarea id="code" spellcheck="false" wrap="off" autocomplete="off" autocapitalize="off" aria-label="Probaho code"></textarea>
-        </div>
-      </div>
-      <div class="controls">
-        <button class="run" id="run" type="button">চালাও</button>
-        <button class="ghost" id="share" type="button">লিংক কপি করো</button>
-        <label><input type="checkbox" id="digits"> বাংলা সংখ্যা</label>
-        <span id="toast" role="status"></span>
-      </div>
+      <div class="head"><span id="filename">main.pb</span><span>Ctrl + Enter</span></div>
+      <div class="edit"><div class="gutter" id="gutter" aria-hidden="true"></div><div class="surface"><pre class="hl" id="hl" aria-hidden="true"></pre><textarea id="code" spellcheck="false" wrap="off" autocomplete="off" autocapitalize="off" aria-label="Probaho code"></textarea></div></div>
+      <div class="controls"><button class="run" id="run" type="button">চালাও</button><button class="ghost" id="share" type="button">লিংক কপি করো</button><label><input type="checkbox" id="digits"> বাংলা সংখ্যা</label><span id="toast" role="status"></span></div>
     </section>
-
-    <section class="slab" aria-label="Output">
-      <div class="status" id="status" data-state="idle"><i class="dot"></i><span id="stext">প্রস্তুত</span></div>
-      <div id="out" aria-live="polite"><span class="ph">চালাও চাপলে এখানে ফল দেখা যাবে।</span></div>
-    </section>
+    <section class="slab" aria-label="Output"><div class="status" id="status" data-state="idle"><i class="dot"></i><span id="stext">প্রস্তুত</span></div><div id="out" aria-live="polite"><span class="ph">চালাও চাপলে এখানে ফল দেখা যাবে।</span></div></section>
   </div>
-
-  <h2>কীওয়ার্ড</h2>
+  <h2>কীওয়ার্ড · Keywords</h2>
   <p class="kw">
     <span><b>ধরি</b>let</span><span><b>যদি</b>if</span><span><b>নাহলে</b>else</span><span><b>যতক্ষণ</b>while</span>
     <span><b>ফাংশন</b>fn</span><span><b>ফেরত</b>return</span><span><b>ছাপো</b>print</span>
     <span><b>সত্য</b>true</span><span><b>মিথ্যা</b>false</span><span><b>এবং</b>and</span><span><b>অথবা</b>or</span>
     <span><b>না</b>not</span><span><b>থামো</b>break</span><span><b>পরেরটা</b>continue</span>
+    <span><b>শ্রেণি</b>class</span><span><b>গোপন</b>private</span><span><b>এই</b>this</span><span><b>নতুন</b>new</span>
   </p>
-
-  <footer>MIT লাইসেন্স। সোর্স কোড https://github.com/aranyasardar10/probaho.git-এ আছে, যে কেউ নতুন উদাহরণ বা কীওয়ার্ড যোগ করতে পারে।</footer>
+  <footer>MIT লাইসেন্স। OPP সংস্করণে শ্রেণি, বস্তু, মেথড এবং ব্যক্তিগত সদস্য অন্তর্ভুক্ত।</footer>
 </main>
-
 <script>
-  // Shown only if the module below never starts (page opened by double-click)
-  setTimeout(function () {
-    if (!window.__probahoLoaded) {
-      document.getElementById('out').textContent =
-        'এই পেজ সরাসরি ফাইল হিসেবে খুললে চলবে না। প্রজেক্ট ফোল্ডারে "npm start" চালিয়ে http://localhost:8000 খুলুন।\n' +
-        'Do not open this file by double-clicking. Run "npm start" in the project folder and open http://localhost:8000';
-    }
-  }, 1500);
+  setTimeout(function () { if (!window.__probahoLoaded) { document.getElementById('out').textContent = 'প্রজেক্ট ফোল্ডারে "npm start" চালিয়ে playground খুলুন।\nRun "npm start" in the project folder and open http://localhost:8000'; } }, 1500);
 </script>
 <script type="module">
   import { runProgram } from './src/index.js';
@@ -173,50 +118,34 @@
     ['হ্যালো', 'hello'], ['ফ্যাক্টোরিয়াল', 'factorial'], ['FizzBuzz', 'fizzbuzz'],
     ['ফিবোনাচি', 'fibonacci'], ['অভিবাদন', 'greet'], ['মৌলিক সংখ্যা', 'primes'],
     ['বাবল সর্ট', 'bubble-sort'], ['নামতা', 'namta'],
+    ['কাউন্টার · OOP', 'counter'], ['ব্যাংক হিসাব · OOP', 'bank-account'],
   ];
   const $ = (id) => document.getElementById(id);
   const code = $('code'), hl = $('hl'), gutter = $('gutter'), out = $('out');
 
-  // ----- editor: highlight layer and line numbers follow the textarea -----
   function sync() {
     hl.innerHTML = highlightHtml(code.value) + '\n';
-    const lines = code.value.split('\n').length;
-    gutter.textContent = Array.from({ length: lines }, (_, i) => bn(i + 1)).join('\n');
+    gutter.textContent = Array.from({ length: code.value.split('\n').length }, (_, i) => bn(i + 1)).join('\n');
   }
   code.addEventListener('input', sync);
-  code.addEventListener('scroll', () => {
-    hl.scrollTop = gutter.scrollTop = code.scrollTop;
-    hl.scrollLeft = code.scrollLeft;
-  });
+  code.addEventListener('scroll', () => { hl.scrollTop = gutter.scrollTop = code.scrollTop; hl.scrollLeft = code.scrollLeft; });
   code.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); run(); }
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      code.setRangeText('  ', code.selectionStart, code.selectionEnd, 'end');
-      sync();
-    }
+    if (e.key === 'Tab') { e.preventDefault(); code.setRangeText('  ', code.selectionStart, code.selectionEnd, 'end'); sync(); }
   });
 
-  // ----- running -----
   const setStatus = (state, text) => { $('status').dataset.state = state; $('stext').textContent = text; };
   const div = (cls, text) => { const d = document.createElement('div'); if (cls) d.className = cls; d.textContent = text; return d; };
-
   function renderError(text) {
     const [l0, l1, src, caret] = text.split('\n');
-    const box = div('error', '');
-    box.append(div('l0', l0), div('l1', l1 ?? ''));
+    const box = div('error', ''); box.append(div('l0', l0), div('l1', l1 ?? ''));
     if (src !== undefined) box.append(div('code', src), div('caret', caret ?? ''));
     return box;
   }
-
   function run() {
-    const t0 = performance.now();
-    let r;
-    try {
-      r = runProgram(code.value, { banglaDigits: $('digits').checked });
-    } catch (e) {
-      r = { output: [], error: 'ভেতরের ত্রুটি\nInternal error: ' + e.message };
-    }
+    const t0 = performance.now(); let r;
+    try { r = runProgram(code.value, { banglaDigits: $('digits').checked }); }
+    catch (e) { r = { output: [], error: 'ভেতরের ত্রুটি\nInternal error: ' + e.message }; }
     const ms = Math.max(1, Math.round(performance.now() - t0));
     out.replaceChildren(...r.output.map((line) => div('', line || ' ')));
     if (r.error) out.append(renderError(r.error));
@@ -224,51 +153,32 @@
     setStatus(r.error ? 'err' : 'ok', r.error ? 'ত্রুটি আছে' : `চলেছে, ${bn(ms)} মি.সে.`);
   }
 
-  // ----- examples -----
   const tabs = $('tabs');
-  for (const [label, file] of EXAMPLES) {
-    const b = document.createElement('button');
-    b.className = 'tab'; b.type = 'button'; b.textContent = label; b.dataset.file = file;
-    tabs.append(b);
-  }
-  function markTab(file) {
-    for (const b of tabs.children) b.setAttribute('aria-current', String(b.dataset.file === file));
-  }
+  for (const [label, file] of EXAMPLES) { const b = document.createElement('button'); b.className = 'tab'; b.type = 'button'; b.textContent = label; b.dataset.file = file; tabs.append(b); }
+  function markTab(file) { for (const b of tabs.children) b.setAttribute('aria-current', String(b.dataset.file === file)); }
   async function loadExample(file) {
     try {
-      const res = await fetch(`examples/${file}.pb`);
-      if (!res.ok) throw new Error(res.status);
-      code.value = await res.text();
-      markTab(file); sync(); run();
-      history.replaceState(null, '', location.pathname);
-    } catch (e) {
-      out.replaceChildren(div('ph', 'উদাহরণ লোড করা যায়নি।'));
-    }
+      const res = await fetch(`examples/${file}.pb`); if (!res.ok) throw new Error(res.status);
+      code.value = await res.text(); $('filename').textContent = `${file}.pb`;
+      markTab(file); sync(); run(); history.replaceState(null, '', location.pathname);
+    } catch (_) { out.replaceChildren(div('ph', 'উদাহরণ লোড করা যায়নি।')); }
   }
   tabs.addEventListener('click', (e) => { if (e.target.dataset.file) loadExample(e.target.dataset.file); });
 
-  // ----- share link: the program travels inside the URL hash -----
   const encode = (s) => btoa(String.fromCharCode(...new TextEncoder().encode(s)));
   const decode = (s) => new TextDecoder().decode(Uint8Array.from(atob(s), (c) => c.charCodeAt(0)));
   function toast(text) { $('toast').textContent = text; setTimeout(() => ($('toast').textContent = ''), 2500); }
-
   $('share').addEventListener('click', async () => {
     const url = `${location.origin}${location.pathname}#code=${encodeURIComponent(encode(code.value))}`;
     history.replaceState(null, '', url);
-    try { await navigator.clipboard.writeText(url); toast('লিংক কপি হয়েছে'); }
-    catch { toast('ঠিকানার বারে লিংক আছে, কপি করে নাও'); }
+    try { await navigator.clipboard.writeText(url); toast('লিংক কপি হয়েছে'); } catch { toast('ঠিকানার বারে লিংক আছে, কপি করে নাও'); }
   });
-  $('run').addEventListener('click', run);
-  $('digits').addEventListener('change', run);
+  $('run').addEventListener('click', run); $('digits').addEventListener('change', run);
 
-  // ----- start -----
   window.__probahoLoaded = true;
   let shared = null;
-  try {
-    const m = location.hash.match(/^#code=(.+)$/);
-    if (m) shared = decode(decodeURIComponent(m[1]));
-  } catch { /* ignore a broken link */ }
-  if (shared !== null) { code.value = shared; markTab(''); sync(); run(); }
+  try { const m = location.hash.match(/^#code=(.+)$/); if (m) shared = decode(decodeURIComponent(m[1])); } catch {}
+  if (shared !== null) { code.value = shared; $('filename').textContent = 'main.pb'; markTab(''); sync(); run(); }
   else loadExample('hello');
 </script>
 </body>
